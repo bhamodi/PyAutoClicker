@@ -8,10 +8,10 @@ import math
 import random
 
 # Define constants
-TIME_BETWEEN_CLICKS = 15
-NUMBER_OF_CLICKS = 750
-MAX_RANDOM_TIME_VALUE = 2.5
-LOCK_COMPUTER_UPON_FINISHING = true
+TIME_BETWEEN_CLICKS = float(input("Time between clicks: "))
+NUMBER_OF_CLICKS = int(input("Number of clicks: "))
+MAX_RANDOM_TIME_VALUE = float(input("Maximum random time: "))
+LOCK_COMPUTER_UPON_FINISHING = input("Lock computer after finishing? (type 'true' or 'false'): ") == "true"
 
 # Define Click
 def click(x,y):
