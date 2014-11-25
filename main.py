@@ -8,9 +8,10 @@ import math
 import random
 
 # Define constants
-TIME_BETWEEN_CLICKS = 20
-NUMBER_OF_CLICKS = 500
-MAX_RANDOM_TIME_VALUE = 1.5
+TIME_BETWEEN_CLICKS = 15
+NUMBER_OF_CLICKS = 750
+MAX_RANDOM_TIME_VALUE = 2.5
+LOCK_COMPUTER_UPON_FINISHING = true
 
 # Define Click
 def click(x,y):
@@ -25,3 +26,7 @@ while (x < NUMBER_OF_CLICKS):
     a, b = win32api.GetCursorPos()
     click(a, b)
     x = x + 1
+
+if (LOCK_COMPUTER_UPON_FINISHING):
+    import ctypes
+    ctypes.windll.user32.LockWorkStation()
