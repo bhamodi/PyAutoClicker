@@ -6,12 +6,18 @@ import win32api, win32con
 import time
 import math
 import random
+from time import strftime
+
+# Output (Will be replaced by GUI in future)
+print('********** PyAutoClicker **********')
 
 # Define constants
 TIME_BETWEEN_CLICKS = float(input("Time between clicks: "))
 NUMBER_OF_CLICKS = int(input("Number of clicks: "))
 MAX_RANDOM_TIME_VALUE = float(input("Maximum random time: "))
 LOCK_COMPUTER_UPON_FINISHING = input("Lock computer after finishing? (type 'true' or 'false'): ") == "true"
+
+print('START TIME: ' + strftime("%Y-%m-%d %I:%M:%S"))
 
 # Define Click
 def click(x,y):
@@ -26,6 +32,8 @@ while (x < NUMBER_OF_CLICKS):
     a, b = win32api.GetCursorPos()
     click(a, b)
     x = x + 1
+
+print('END TIME: ' + strftime("%Y-%m-%d %I:%M:%S"))
 
 if (LOCK_COMPUTER_UPON_FINISHING):
     import ctypes
