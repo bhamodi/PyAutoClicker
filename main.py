@@ -3,10 +3,11 @@
 
 # Imports
 import win32api, win32con
-import time
 import math
 import random
+import time
 from time import strftime
+import datetime
 
 # Define Click
 def click(x,y):
@@ -25,13 +26,14 @@ MODE = int(input("Enter '1' for number of clicks mode or '2' for timer mode: "))
 if MODE == 1:
     NUMBER_OF_CLICKS = int(input("Number of clicks: "))
 else:
-    TOTAL_RUN_TIME = int(input("Total run time in minutes: "))
+    TOTAL_RUN_TIME = float(input("Total run time in minutes: "))
 
 TIME_BETWEEN_CLICKS = float(input("Time between clicks in seconds: "))
 MAX_RANDOM_TIME_VALUE = float(input("Maximum random time: "))
 LOCK_COMPUTER_UPON_FINISHING = input("Lock computer after finishing? (type 'true' or 'false'): ") == "true"
 
 print('START TIME: ' + strftime("%Y-%m-%d %I:%M:%S"))
+starting_time = datetime.datetime.now().replace(microsecond=0)
 
 # Main Logic
 if MODE == 1:
@@ -50,6 +52,8 @@ elif MODE == 2:
         click(a, b)
 
 print('END TIME:   ' + strftime("%Y-%m-%d %I:%M:%S"))
+ending_time = datetime.datetime.now().replace(microsecond=0)
+print('RAN FOR:    ' + str(ending_time - starting_time))
 
 if (LOCK_COMPUTER_UPON_FINISHING):
     import ctypes
