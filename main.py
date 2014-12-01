@@ -15,11 +15,29 @@ root = Tk()
 root.title("PyAutoClicker")
 root.resizable(width = False, height = False)
 root.minsize(width = 300, height = 150)
-def Pressed():
-    print('Buttons are cool!')
 
-button = Button(root, text = "Close", width = 25, command = Pressed)
-button.pack()
+label1 = Label(root, text = "Total Time: ")
+entry1 = Entry(root, bd = 5)
+entry1.focus_set()
+label2 = Label(root, text = "Seconds per Click: ")
+entry2 = Entry(root, bd = 5)
+label3 = Label(root, text = "Random Time Factor: ")
+entry3 = Entry(root, bd = 5)
+
+def start():
+    print(entry1.get())
+    print(entry2.get())
+    print(entry3.get())
+
+button = Button(root, text = "Submit", command = start)
+
+label1.pack()
+entry1.pack()
+label2.pack()
+entry2.pack()
+label3.pack()
+entry3.pack()
+button.pack(side = BOTTOM)
 root.mainloop()
 
 # Define Click
