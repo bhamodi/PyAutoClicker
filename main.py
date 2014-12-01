@@ -8,6 +8,19 @@ import random
 import time
 from time import strftime
 import datetime
+from tkinter import *
+
+# GUI Setup
+root = Tk()
+root.title("PyAutoClicker")
+root.resizable(width = False, height = False)
+root.minsize(width = 300, height = 150)
+def Pressed():
+    print('Buttons are cool!')
+
+button = Button(root, text = "Close", width = 25, command = Pressed)
+button.pack()
+root.mainloop()
 
 # Define Click
 def click(x,y):
