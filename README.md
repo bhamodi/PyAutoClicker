@@ -7,8 +7,8 @@ A customizable and open-sourced auto clicker for all your clicking needs.
 
 + Left click at a specified rate
 + Click for a certain number of clicks
-+ Click for a certain length of time [*IN PROGRESS*]
++ Click for a certain length of time
 + Click at random intervals
-+ Click at random screen locations [*IN PROGRESS*]
-+ Repeat a series of clicks (Machine Learning) [*IN PROGRESS*]
++ Click at random screen locations [*FUTURE UPDATE*]
++ Repeat a series of clicks (Machine Learning) [*FUTURE UPDATE*]
 + Customize properties in GUI [*IN PROGRESS*]
