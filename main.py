@@ -17,8 +17,11 @@ def show_gui():
     root.resizable(width = False, height = False)
     root.minsize(width = 300, height = 150)
 
-    label0 = Label(root, text = "Mode (1 or 2): ")
-    entry0 = Entry(root, bd = 5)
+    label0 = Label(root, text = "Please only select ONE mode.")
+    mode_1_var = IntVar()
+    check_box1 = Checkbutton(root, text = "Mode 1: Click for a number of clicks", variable = mode_1_var)
+    mode_2_var = IntVar()
+    check_box2 = Checkbutton(root, text = "Mode 2: Click for a number of minutes", variable = mode_2_var)
     label1 = Label(root, text = "Total Time: ")
     entry1 = Entry(root, bd = 5)
     label2 = Label(root, text = "Seconds per Click: ")
@@ -27,19 +30,15 @@ def show_gui():
     entry3 = Entry(root, bd = 5)
     label4 = Label(root, text = "Lock after completion? (yes or no): ")
     entry4 = Entry(root, bd = 5)
-    entry0.focus_set()
+    entry1.focus_set()
 
     def start():
         # Output (Will be replaced by GUI in future)
         print('********** PyAutoClicker **********')
 
-        # Pick operation mode (run for a certain amount of time or certain amount of clicks)
-        MODE = int(entry0.get())
-
-        # Define constants
-        if MODE == 1:
+        if mode_1_var.get():
             NUMBER_OF_CLICKS = int(entry1.get())
-        elif MODE == 2:
+        elif mode_2_var.get():
             TOTAL_RUN_TIME = float(entry1.get())
 
         TIME_BETWEEN_CLICKS = float(entry2.get())
@@ -53,9 +52,9 @@ def show_gui():
         starting_time = datetime.datetime.now().replace(microsecond=0)
 
         # Main Logic
-        if MODE == 1:
+        if mode_1_var.get():
             mode_1(NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE)
-        elif MODE == 2:
+        elif mode_2_var.get():
             mode_2(TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE)
 
         print('END TIME:   ' + strftime("%Y-%m-%d %I:%M:%S"))
@@ -68,7 +67,8 @@ def show_gui():
     button = Button(root, text = "Submit", command = start)
 
     label0.pack()
-    entry0.pack()
+    check_box1.pack()
+    check_box2.pack()
     label1.pack()
     entry1.pack()
     label2.pack()
