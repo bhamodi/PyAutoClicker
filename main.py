@@ -26,7 +26,7 @@ def show_gui():
     entry1 = Entry(root, bd = 5)
     label2 = Label(root, text = "Seconds per click: ")
     entry2 = Entry(root, bd = 5)
-    label3 = Label(root, text = "Maxiumum number of random seconds between clicks: ")
+    label3 = Label(root, text = "Maximum number of random seconds between clicks: ")
     entry3 = Entry(root, bd = 5)
     lock_comp_var = IntVar()
     check_box3 = Checkbutton(root, text = "Lock computer after completion?", variable = lock_comp_var)
