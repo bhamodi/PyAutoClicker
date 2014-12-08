@@ -28,8 +28,8 @@ def show_gui():
     entry2 = Entry(root, bd = 5)
     label3 = Label(root, text = "Random Time Factor: ")
     entry3 = Entry(root, bd = 5)
-    label4 = Label(root, text = "Lock after completion? (yes or no): ")
-    entry4 = Entry(root, bd = 5)
+    lock_comp_var = IntVar()
+    check_box3 = Checkbutton(root, text = "Lock computer after completion?", variable = lock_comp_var)
     entry1.focus_set()
 
     def start():
@@ -43,10 +43,6 @@ def show_gui():
 
         TIME_BETWEEN_CLICKS = float(entry2.get())
         MAX_RANDOM_TIME_VALUE = float(entry3.get())
-        if entry4.get() == 'yes':
-            LOCK_COMPUTER_UPON_FINISHING = True
-        else:
-            LOCK_COMPUTER_UPON_FINISHING = False
         
         print('START TIME: ' + strftime("%Y-%m-%d %I:%M:%S"))
         starting_time = datetime.datetime.now().replace(microsecond=0)
@@ -61,7 +57,7 @@ def show_gui():
         ending_time = datetime.datetime.now().replace(microsecond=0)
         print('RAN FOR:    ' + str(ending_time - starting_time))
 
-        if (LOCK_COMPUTER_UPON_FINISHING):
+        if (lock_comp_var.get()):
             lock_computer()
 
     button = Button(root, text = "Submit", command = start)
@@ -75,8 +71,7 @@ def show_gui():
     entry2.pack()
     label3.pack()
     entry3.pack()
-    label4.pack()
-    entry4.pack()
+    check_box3.pack()
     button.pack(side = BOTTOM)
     root.mainloop()
 
