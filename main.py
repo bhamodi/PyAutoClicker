@@ -8,36 +8,75 @@ import random
 import time
 from time import strftime
 import datetime
+from tkinter import *
 
 # GUI Setup
 def show_gui():
-    from tkinter import *
     root = Tk()
     root.title("PyAutoClicker")
     root.resizable(width = False, height = False)
     root.minsize(width = 300, height = 150)
 
+    label0 = Label(root, text = "Mode (1 or 2): ")
+    entry0 = Entry(root, bd = 5)
     label1 = Label(root, text = "Total Time: ")
     entry1 = Entry(root, bd = 5)
-    entry1.focus_set()
     label2 = Label(root, text = "Seconds per Click: ")
     entry2 = Entry(root, bd = 5)
     label3 = Label(root, text = "Random Time Factor: ")
     entry3 = Entry(root, bd = 5)
+    label4 = Label(root, text = "Lock after completion? (yes or no): ")
+    entry4 = Entry(root, bd = 5)
+    entry0.focus_set()
 
     def start():
-        print(entry1.get())
-        print(entry2.get())
-        print(entry3.get())
+        # Output (Will be replaced by GUI in future)
+        print('********** PyAutoClicker **********')
+
+        # Pick operation mode (run for a certain amount of time or certain amount of clicks)
+        MODE = int(entry0.get())
+
+        # Define constants
+        if MODE == 1:
+            NUMBER_OF_CLICKS = int(entry1.get())
+        elif MODE == 2:
+            TOTAL_RUN_TIME = float(entry1.get())
+
+        TIME_BETWEEN_CLICKS = float(entry2.get())
+        MAX_RANDOM_TIME_VALUE = float(entry3.get())
+        if entry4.get() == 'yes':
+            LOCK_COMPUTER_UPON_FINISHING = True
+        else:
+            LOCK_COMPUTER_UPON_FINISHING = False
+        
+        print('START TIME: ' + strftime("%Y-%m-%d %I:%M:%S"))
+        starting_time = datetime.datetime.now().replace(microsecond=0)
+
+        # Main Logic
+        if MODE == 1:
+            mode_1(NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE)
+        elif MODE == 2:
+            mode_2(TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE)
+
+        print('END TIME:   ' + strftime("%Y-%m-%d %I:%M:%S"))
+        ending_time = datetime.datetime.now().replace(microsecond=0)
+        print('RAN FOR:    ' + str(ending_time - starting_time))
+
+        if (LOCK_COMPUTER_UPON_FINISHING):
+            lock_computer()
 
     button = Button(root, text = "Submit", command = start)
 
+    label0.pack()
+    entry0.pack()
     label1.pack()
     entry1.pack()
     label2.pack()
     entry2.pack()
     label3.pack()
     entry3.pack()
+    label4.pack()
+    entry4.pack()
     button.pack(side = BOTTOM)
     root.mainloop()
 
@@ -70,35 +109,4 @@ def mode_2(total_run_time, time_between_clicks, max_random_time_value):
         a, b = win32api.GetCursorPos()
         click(a, b)
 
-# Output (Will be replaced by GUI in future)
-print('********** PyAutoClicker **********')
-
-# Pick operation mode (run for a certain amount of time or certain amount of clicks)
-#TODO: Will be replaced by GUI
-MODE = int(input("Enter '1' for number of clicks mode or '2' for timer mode: "))
-
-# Define constants
-if MODE == 1:
-    NUMBER_OF_CLICKS = int(input("Number of clicks: "))
-else:
-    TOTAL_RUN_TIME = float(input("Total run time in minutes: "))
-
-TIME_BETWEEN_CLICKS = float(input("Time between clicks in seconds: "))
-MAX_RANDOM_TIME_VALUE = float(input("Maximum random time: "))
-LOCK_COMPUTER_UPON_FINISHING = input("Lock computer after finishing? (type 'true' or 'false'): ") == "true"
-
-print('START TIME: ' + strftime("%Y-%m-%d %I:%M:%S"))
-starting_time = datetime.datetime.now().replace(microsecond=0)
-
-# Main Logic
-if MODE == 1:
-    mode_1(NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE)
-elif MODE == 2:
-    mode_2(TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE)
-
-print('END TIME:   ' + strftime("%Y-%m-%d %I:%M:%S"))
-ending_time = datetime.datetime.now().replace(microsecond=0)
-print('RAN FOR:    ' + str(ending_time - starting_time))
-
-if (LOCK_COMPUTER_UPON_FINISHING):
-    lock_computer()
+show_gui()
