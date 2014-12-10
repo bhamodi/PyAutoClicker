@@ -10,6 +10,8 @@ from time import strftime
 import datetime
 from tkinter import *
 
+global_state = ''
+
 def show_gui():
     # GUI setup
     root = Tk()
@@ -34,6 +36,9 @@ def show_gui():
 
     def start():
         # Main Logic of PyAutoClicker
+        global global_state
+        global_state = "ON"
+
         if mode_1_var.get():
             NUMBER_OF_CLICKS = int(entry1.get())
         elif mode_2_var.get():
@@ -58,7 +63,12 @@ def show_gui():
         if (lock_comp_var.get()):
             lock_computer()
 
-    button = Button(root, text = "Submit", command = start)
+    def stop():
+        global global_state
+        global_state = "OFF"
+
+    start_button = Button(root, text = "Start", command = start)
+    stop_button = Button(root, text = "Stop", command = stop)
 
     label0.pack()
     check_box1.pack()
@@ -70,7 +80,8 @@ def show_gui():
     label3.pack()
     entry3.pack()
     check_box3.pack()
-    button.pack(side = BOTTOM)
+    start_button.pack()
+    stop_button.pack()
     root.mainloop()
 
 # Define Click
@@ -87,7 +98,7 @@ def lock_computer():
 # Define number of clicks mode (mode 1)
 def mode_1(number_of_clicks, time_between_clicks, max_random_time_value):
     x = 0;
-    while (x < number_of_clicks):
+    while (x < number_of_clicks and global_state == "ON"):
         time.sleep(time_between_clicks + max_random_time_value*random.random())
         a, b = win32api.GetCursorPos()
         click(a, b)
@@ -97,7 +108,7 @@ def mode_1(number_of_clicks, time_between_clicks, max_random_time_value):
 def mode_2(total_run_time, time_between_clicks, max_random_time_value):
     start_time = time.time()
     end_time = start_time + total_run_time*60
-    while (time.time() < end_time):
+    while (time.time() < end_time and global_state == "ON"):
         time.sleep(time_between_clicks + max_random_time_value*random.random())
         a, b = win32api.GetCursorPos()
         click(a, b)
