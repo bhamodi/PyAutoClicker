@@ -98,7 +98,9 @@ def lock_computer():
 # Define number of clicks mode (mode 1)
 def mode_1(number_of_clicks, time_between_clicks, max_random_time_value):
     x = 0;
-    while (x < number_of_clicks and global_state == "ON"):
+    while (x < number_of_clicks):
+        if global_state == "OFF":
+            break
         time.sleep(time_between_clicks + max_random_time_value*random.random())
         a, b = win32api.GetCursorPos()
         click(a, b)
@@ -108,7 +110,9 @@ def mode_1(number_of_clicks, time_between_clicks, max_random_time_value):
 def mode_2(total_run_time, time_between_clicks, max_random_time_value):
     start_time = time.time()
     end_time = start_time + total_run_time*60
-    while (time.time() < end_time and global_state == "ON"):
+    while (time.time() < end_time):
+        if global_state == "OFF":
+            break
         time.sleep(time_between_clicks + max_random_time_value*random.random())
         a, b = win32api.GetCursorPos()
         click(a, b)
