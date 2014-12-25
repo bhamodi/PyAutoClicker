@@ -9,6 +9,7 @@ import time
 from time import strftime
 import datetime
 from tkinter import *
+from threading import Thread
 
 global_state = ''
 
@@ -52,9 +53,11 @@ def show_gui():
         starting_time = datetime.datetime.now().replace(microsecond=0)
 
         if mode_1_var.get():
-            mode_1(NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE)
+            thread = Thread(target=mode_1, args=(NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE))
+            thread.start()
         elif mode_2_var.get():
-            mode_2(TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE)
+            thread = Thread(target=mode_2, args=(TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE))
+            thread.start()
 
         print('END TIME:   ' + strftime("%Y-%m-%d %I:%M:%S"))
         ending_time = datetime.datetime.now().replace(microsecond=0)
