@@ -47,17 +47,15 @@ def show_gui():
 
         TIME_BETWEEN_CLICKS = float(entry2.get())
         MAX_RANDOM_TIME_VALUE = float(entry3.get())
+        SHOULD_LOCK = lock_comp_var.get()
 
         print('******** PyAutoClicker ********')
         if mode_1_var.get():
-            thread = Thread(target=mode_1, args=(NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE))
+            thread = Thread(target=mode_1, args=(NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK))
             thread.start()
         elif mode_2_var.get():
-            thread = Thread(target=mode_2, args=(TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE))
+            thread = Thread(target=mode_2, args=(TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK))
             thread.start()
-
-        if (lock_comp_var.get()):
-            lock_computer()
 
     def stop():
         global global_state
@@ -92,7 +90,7 @@ def lock_computer():
     ctypes.windll.user32.LockWorkStation()
 
 # Define number of clicks mode (mode 1)
-def mode_1(number_of_clicks, time_between_clicks, max_random_time_value):
+def mode_1(number_of_clicks, time_between_clicks, max_random_time_value, should_lock):
     print('START TIME: ' + strftime("%Y-%m-%d %I:%M:%S"))
     starting_time = datetime.datetime.now().replace(microsecond=0)
     x = 0;
@@ -106,9 +104,11 @@ def mode_1(number_of_clicks, time_between_clicks, max_random_time_value):
     print('END TIME:   ' + strftime("%Y-%m-%d %I:%M:%S"))
     ending_time = datetime.datetime.now().replace(microsecond=0)
     print('RAN FOR:    ' + str(ending_time - starting_time))
+    if should_lock:
+        lock_computer()
 
 # Define total run time (mode 2)
-def mode_2(total_run_time, time_between_clicks, max_random_time_value):
+def mode_2(total_run_time, time_between_clicks, max_random_time_value, should_lock):
     print('START TIME: ' + strftime("%Y-%m-%d %I:%M:%S"))
     starting_time = datetime.datetime.now().replace(microsecond=0)
     start_time = time.time()
@@ -122,6 +122,8 @@ def mode_2(total_run_time, time_between_clicks, max_random_time_value):
     print('END TIME:   ' + strftime("%Y-%m-%d %I:%M:%S"))
     ending_time = datetime.datetime.now().replace(microsecond=0)
     print('RAN FOR:    ' + str(ending_time - starting_time))
+    if should_lock:
+        lock_computer()
 
 # Run PyAutoClicker
 show_gui()
