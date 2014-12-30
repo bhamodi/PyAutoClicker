@@ -13,7 +13,7 @@ from threading import Thread
 
 global_state = ''
 
-def show_gui():
+def main():
     # GUI setup
     root = Tk()
     root.title("PyAutoClicker")
@@ -126,4 +126,5 @@ def mode_2(total_run_time, time_between_clicks, max_random_time_value, should_lo
         lock_computer()
 
 # Run PyAutoClicker
-show_gui()
+if __name__ == '__main__':
+    main()
