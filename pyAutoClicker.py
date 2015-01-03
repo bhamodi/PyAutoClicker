@@ -33,6 +33,8 @@ def main():
     entry3 = Entry(root, bd = 5)
     lock_comp_var = IntVar()
     check_box3 = Checkbutton(root, text = "Lock computer after completion?", variable = lock_comp_var)
+    random_click_var = IntVar()
+    check_box4 = Checkbutton(root, text = "Randomly click within 5x5 pixels of mouse?", variable = random_click_var)
     entry1.focus_set()
 
     def start():
@@ -48,13 +50,14 @@ def main():
         TIME_BETWEEN_CLICKS = float(entry2.get())
         MAX_RANDOM_TIME_VALUE = float(entry3.get())
         SHOULD_LOCK = lock_comp_var.get()
+        RANDOM_CLICK = random_click_var.get()
 
         print('******** PyAutoClicker ********')
         if mode_1_var.get():
-            thread = Thread(target = mode_1, args = (NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK))
+            thread = Thread(target = mode_1, args = (NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK, RANDOM_CLICK))
             thread.start()
         elif mode_2_var.get():
-            thread = Thread(target = mode_2, args = (TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK))
+            thread = Thread(target = mode_2, args = (TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK, RANDOM_CLICK))
             thread.start()
 
     def stop():
@@ -74,15 +77,23 @@ def main():
     label3.pack()
     entry3.pack()
     check_box3.pack()
+    check_box4.pack()
     start_button.pack()
     stop_button.pack()
     root.mainloop()
 
 # Define Click
-def click(x, y):
+def click(x, y, random_click):
+    if random_click:
+        original_x = x
+        original_y = y
+        x += random.randint(-5, 5)
+        y += random.randint(-5, 5)
     win32api.SetCursorPos((x, y))
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, x, y, 0, 0)
     win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
+    if random_click:
+        win32api.SetCursorPos((original_x, original_y))
 
 # Define Lock Computer
 def lock_computer():
@@ -90,7 +101,7 @@ def lock_computer():
     ctypes.windll.user32.LockWorkStation()
 
 # Define number of clicks mode (mode 1)
-def mode_1(number_of_clicks, time_between_clicks, max_random_time_value, should_lock):
+def mode_1(number_of_clicks, time_between_clicks, max_random_time_value, should_lock, random_click):
     print('START TIME: ' + strftime("%Y-%m-%d %I:%M:%S"))
     starting_time = datetime.datetime.now().replace(microsecond = 0)
     x = 0;
@@ -99,7 +110,7 @@ def mode_1(number_of_clicks, time_between_clicks, max_random_time_value, should_
             break
         time.sleep(time_between_clicks + max_random_time_value * random.random())
         a, b = win32api.GetCursorPos()
-        click(a, b)
+        click(a, b, random_click)
         x += 1
     print('END TIME:   ' + strftime("%Y-%m-%d %I:%M:%S"))
     ending_time = datetime.datetime.now().replace(microsecond = 0)
@@ -108,7 +119,7 @@ def mode_1(number_of_clicks, time_between_clicks, max_random_time_value, should_
         lock_computer()
 
 # Define total run time (mode 2)
-def mode_2(total_run_time, time_between_clicks, max_random_time_value, should_lock):
+def mode_2(total_run_time, time_between_clicks, max_random_time_value, should_lock, random_click):
     print('START TIME: ' + strftime("%Y-%m-%d %I:%M:%S"))
     starting_time = datetime.datetime.now().replace(microsecond = 0)
     start_time = time.time()
@@ -118,7 +129,7 @@ def mode_2(total_run_time, time_between_clicks, max_random_time_value, should_lo
             break
         time.sleep(time_between_clicks + max_random_time_value * random.random())
         a, b = win32api.GetCursorPos()
-        click(a, b)
+        click(a, b, random_click)
     print('END TIME:   ' + strftime("%Y-%m-%d %I:%M:%S"))
     ending_time = datetime.datetime.now().replace(microsecond = 0)
     print('RAN FOR:    ' + str(ending_time - starting_time))
