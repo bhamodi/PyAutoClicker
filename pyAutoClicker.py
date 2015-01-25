@@ -37,7 +37,7 @@ def main():
     check_box4 = Checkbutton(root, text = "Randomly click within 5x5 pixels of mouse?", variable = random_click_var)
     entry1.focus_set()
 
-    def start():
+    def start(event = None):
         # Main Logic of PyAutoClicker
         global global_state
         global_state = "ON"
@@ -60,12 +60,17 @@ def main():
             thread = Thread(target = mode_2, args = (TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK, RANDOM_CLICK))
             thread.start()
 
-    def stop():
+    def stop(event = None):
         global global_state
         global_state = "OFF"
 
+    # Start via click or binded key.
     start_button = Button(root, text = "Start", command = start)
+    root.bind('<F1>', start)
+
+    # Stop via click or binded key.
     stop_button = Button(root, text = "Stop", command = stop)
+    root.bind('<F2>', stop)
 
     label0.pack()
     check_box1.pack()
