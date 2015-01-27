@@ -20,11 +20,9 @@ def main():
     root.resizable(width = False, height = False)
     root.minsize(width = 310, height = 150)
 
-    label0 = Label(root, text = "Please only select ONE mode.")
-    mode_1_var = IntVar()
-    check_box1 = Checkbutton(root, text = "Mode 1: Click for a number of clicks", variable = mode_1_var)
-    mode_2_var = IntVar()
-    check_box2 = Checkbutton(root, text = "Mode 2: Click for a number of minutes", variable = mode_2_var)
+    mode_var = IntVar()
+    radio_button_1 = Radiobutton(root, text = "Mode 1: Click for a number of clicks", variable = mode_var, value = 1)
+    radio_button_2 = Radiobutton(root, text = "Mode 2: Click for a number of minutes", variable = mode_var, value = 0)
     label1 = Label(root, text = "Number of clicks (OR number of minutes if in mode 2): ")
     entry1 = Entry(root, bd = 5)
     label2 = Label(root, text = "Seconds per click: ")
@@ -42,9 +40,9 @@ def main():
         global global_state
         global_state = "ON"
 
-        if mode_1_var.get():
+        if mode_var.get():
             NUMBER_OF_CLICKS = int(entry1.get())
-        elif mode_2_var.get():
+        else:
             TOTAL_RUN_TIME = float(entry1.get())
 
         TIME_BETWEEN_CLICKS = float(entry2.get())
@@ -53,10 +51,10 @@ def main():
         RANDOM_CLICK = random_click_var.get()
 
         print('******** PyAutoClicker ********')
-        if mode_1_var.get():
+        if mode_var.get():
             thread = Thread(target = mode_1, args = (NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK, RANDOM_CLICK))
             thread.start()
-        elif mode_2_var.get():
+        else:
             thread = Thread(target = mode_2, args = (TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK, RANDOM_CLICK))
             thread.start()
 
@@ -72,9 +70,8 @@ def main():
     stop_button = Button(root, text = "Stop (F2)", command = stop)
     root.bind('<F2>', stop)
 
-    label0.pack()
-    check_box1.pack()
-    check_box2.pack()
+    radio_button_1.pack()
+    radio_button_2.pack()
     label1.pack()
     entry1.pack()
     label2.pack()
