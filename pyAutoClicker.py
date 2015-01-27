@@ -20,6 +20,9 @@ def main():
     root.resizable(width = False, height = False)
     root.minsize(width = 310, height = 150)
 
+    img = PhotoImage(file = 'mouse.png')
+    root.tk.call('wm', 'iconphoto', root._w, img)
+
     mode_var = IntVar()
     radio_button_1 = Radiobutton(root, text = "Mode 1: Click for a number of clicks", variable = mode_var, value = 1)
     radio_button_2 = Radiobutton(root, text = "Mode 2: Click for a number of minutes", variable = mode_var, value = 0)
