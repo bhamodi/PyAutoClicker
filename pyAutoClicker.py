@@ -65,11 +65,11 @@ def main():
         global_state = "OFF"
 
     # Start via click or binded key.
-    start_button = Button(root, text = "Start", command = start)
+    start_button = Button(root, text = "Start (F1)", command = start)
     root.bind('<F1>', start)
 
     # Stop via click or binded key.
-    stop_button = Button(root, text = "Stop", command = stop)
+    stop_button = Button(root, text = "Stop (F2)", command = stop)
     root.bind('<F2>', stop)
 
     label0.pack()
