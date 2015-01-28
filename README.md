@@ -3,11 +3,12 @@ PyAutoClicker
 
 A customizable and open-sourced auto clicker for all your clicking needs.
 
-![pyautoclicker copy](https://cloud.githubusercontent.com/assets/7663987/5913912/fe0d25d4-a5b9-11e4-9f7f-e15d05ce7df5.png)
+![pyautoclicker](https://cloud.githubusercontent.com/assets/7663987/5933185/7be0968c-a68a-11e4-9e11-1fae3441ba4c.png)
 
 ##Features
 
 + Customizable properties in the GUI
++ Start and stop using your mouse or keyboard
 + Left click at a specified rate
 + Click for a certain number of clicks
 + Click for a certain length of time
