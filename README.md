@@ -15,4 +15,4 @@ A customizable and open-sourced auto clicker for all your clicking needs.
 + Click at random time intervals
 + Click within a random 5x5 pixel range of mouse location (effective against auto-ban algorithms)
 + Customizable keybindings to start and stop the autoclicker [*FUTURE UPDATE*]
-+ Repeat a series of clicks (Machine Learning) [*FUTURE UPDATE*]
++ Repeat a series of clicks [*IN PROGRESS*]
