@@ -24,6 +24,7 @@ def main():
     root.tk.call('wm', 'iconphoto', root._w, img)
 
     mode_var = IntVar()
+    mode_var.set(1)
     radio_button_1 = Radiobutton(root, text = "Mode 1: Click for a number of clicks", variable = mode_var, value = 1)
     radio_button_2 = Radiobutton(root, text = "Mode 2: Click for a number of minutes", variable = mode_var, value = 0)
     label1 = Label(root, text = "Number of clicks (OR number of minutes if in mode 2): ")
