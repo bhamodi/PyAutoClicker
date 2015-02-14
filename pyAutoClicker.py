@@ -142,6 +142,13 @@ def mode_2(total_run_time, time_between_clicks, max_random_time_value, should_lo
     if should_lock:
         lock_computer()
 
+# Define mouse event follower function (mode 3)
+def mode_3():
+    # Click or press special key to start tracking (F6)
+    # Populate a data structure with click event coordinates and time
+    # Click or press special key to stop tracking (F7)
+    # Iterate through key events at the same time intervals they occured
+
 # Run PyAutoClicker
 if __name__ == '__main__':
     main()
