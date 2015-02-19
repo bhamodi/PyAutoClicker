@@ -3,4 +3,4 @@
 *.zip
 
 # Folders to ignore
-dist
+private_dist
