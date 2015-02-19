@@ -144,10 +144,19 @@ def mode_2(total_run_time, time_between_clicks, max_random_time_value, should_lo
 
 # Define mouse event follower function (mode 3)
 def mode_3():
-    # Click or press special key to start tracking (F6)
+    # Press special key to start tracking (F6) (Happens in GUI)
     # Populate a data structure with click event coordinates and time
-    # Click or press special key to stop tracking (F7)
+    click_sequence = []
+    x, y = win32api.GetCursorPos()
+    click_sequence.append(x, y, time.time())
+    # Press special key to stop tracking (F7) (Happens in GUI)
     # Iterate through key events at the same time intervals they occured
+    for i in range(len(click_sequence)):
+        x = click_sequence[i][0]
+        y = click_sequence[i][1]
+        win32api.SetCursorPos((x, y))
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, x, y, 0, 0)
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
 
 # Run PyAutoClicker
 if __name__ == '__main__':
