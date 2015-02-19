@@ -9,6 +9,7 @@ import time
 from time import strftime
 import datetime
 from tkinter import *
+import tkinter.messagebox
 from threading import Thread
 
 global_state = ''
@@ -73,6 +74,12 @@ def main():
     # Stop via click or binded key.
     stop_button = Button(root, text = "Stop (F2)", command = stop)
     root.bind('<F2>', stop)
+
+    # Check if user really meant to quit application.
+    def confirm_quit():
+        if tkinter.messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
+            root.destroy()
+    root.protocol("WM_DELETE_WINDOW", confirm_quit)
 
     radio_button_1.pack()
     radio_button_2.pack()
