@@ -20,9 +20,7 @@ def main():
     root.title("PyAutoClicker")
     root.resizable(width = False, height = False)
     root.minsize(width = 310, height = 150)
-
-    img = PhotoImage(file = 'mouse.png')
-    root.tk.call('wm', 'iconphoto', root._w, img)
+    root.iconbitmap('mouse.ico')
 
     mode_var = IntVar()
     mode_var.set(1)
