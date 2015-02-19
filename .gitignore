@@ -1,0 +1,6 @@
+# Numerous always-ignore extensions
+*.iss
+*.zip
+
+# Folders to ignore
+dist
