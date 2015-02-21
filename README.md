@@ -16,3 +16,11 @@ A customizable and open-sourced auto clicker for all your clicking needs.
 + Click within a random 5x5 pixel range of mouse location (effective against auto-ban algorithms)
 + Customizable keybindings to start and stop the autoclicker [*FUTURE UPDATE*]
 + Repeat a series of clicks [*IN PROGRESS*]
+
+## Install
+
+Windows users can simply run the `setup.exe` file located in the `/dist` directory.
+
+## Build
+
+To build your own executable python code, type `python setup.py` in the project directory. Note, this will require you to have `py2exe` installed.
