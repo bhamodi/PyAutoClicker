@@ -54,6 +54,7 @@ def main():
         else:
             TOTAL_RUN_TIME = float(entry1.get())
 
+        CLICK_TYPE = click_var.get()
         TIME_BETWEEN_CLICKS = float(entry2.get())
         MAX_RANDOM_TIME_VALUE = float(entry3.get())
         SHOULD_LOCK = lock_comp_var.get()
@@ -61,10 +62,10 @@ def main():
 
         print('******** PyAutoClicker ********')
         if mode_var.get():
-            thread = Thread(target = mode_1, args = (NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK, RANDOM_CLICK))
+            thread = Thread(target = mode_1, args = (CLICK_TYPE, NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK, RANDOM_CLICK))
             thread.start()
         else:
-            thread = Thread(target = mode_2, args = (TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK, RANDOM_CLICK))
+            thread = Thread(target = mode_2, args = (CLICK_TYPE, TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK, RANDOM_CLICK))
             thread.start()
 
     def stop(event = None):
@@ -101,15 +102,19 @@ def main():
     root.mainloop()
 
 # Define Click
-def click(x, y, random_click):
+def click(x, y, click_type, random_click):
     if random_click:
         original_x = x
         original_y = y
         x += random.randint(-5, 5)
         y += random.randint(-5, 5)
     win32api.SetCursorPos((x, y))
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, x, y, 0, 0)
-    win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
+    if click_type == 'Left Click':
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTDOWN, x, y, 0, 0)
+        win32api.mouse_event(win32con.MOUSEEVENTF_LEFTUP, x, y, 0, 0)
+    else:
+        win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTDOWN, x, y, 0, 0)
+        win32api.mouse_event(win32con.MOUSEEVENTF_RIGHTUP, x, y, 0, 0)
     if random_click:
         win32api.SetCursorPos((original_x, original_y))
 
@@ -119,7 +124,7 @@ def lock_computer():
     ctypes.windll.user32.LockWorkStation()
 
 # Define number of clicks mode (mode 1)
-def mode_1(number_of_clicks, time_between_clicks, max_random_time_value, should_lock, random_click):
+def mode_1(click_type, number_of_clicks, time_between_clicks, max_random_time_value, should_lock, random_click):
     print('START TIME: ' + strftime("%Y-%m-%d %I:%M:%S"))
     starting_time = datetime.datetime.now().replace(microsecond = 0)
     x = 0;
@@ -128,7 +133,7 @@ def mode_1(number_of_clicks, time_between_clicks, max_random_time_value, should_
             break
         time.sleep(time_between_clicks + max_random_time_value * random.random())
         a, b = win32api.GetCursorPos()
-        click(a, b, random_click)
+        click(a, b, click_type, random_click)
         x += 1
     print('END TIME:   ' + strftime("%Y-%m-%d %I:%M:%S"))
     ending_time = datetime.datetime.now().replace(microsecond = 0)
@@ -137,7 +142,7 @@ def mode_1(number_of_clicks, time_between_clicks, max_random_time_value, should_
         lock_computer()
 
 # Define total run time (mode 2)
-def mode_2(total_run_time, time_between_clicks, max_random_time_value, should_lock, random_click):
+def mode_2(click_type, total_run_time, time_between_clicks, max_random_time_value, should_lock, random_click):
     print('START TIME: ' + strftime("%Y-%m-%d %I:%M:%S"))
     starting_time = datetime.datetime.now().replace(microsecond = 0)
     start_time = time.time()
@@ -147,7 +152,7 @@ def mode_2(total_run_time, time_between_clicks, max_random_time_value, should_lo
             break
         time.sleep(time_between_clicks + max_random_time_value * random.random())
         a, b = win32api.GetCursorPos()
-        click(a, b, random_click)
+        click(a, b, click_type, random_click)
     print('END TIME:   ' + strftime("%Y-%m-%d %I:%M:%S"))
     ending_time = datetime.datetime.now().replace(microsecond = 0)
     print('RAN FOR:    ' + str(ending_time - starting_time))
