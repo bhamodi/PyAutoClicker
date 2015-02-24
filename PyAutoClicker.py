@@ -26,12 +26,18 @@ def main():
     mode_var.set(1)
     radio_button_1 = Radiobutton(root, text = "Mode 1: Click for a number of clicks", variable = mode_var, value = 1)
     radio_button_2 = Radiobutton(root, text = "Mode 2: Click for a number of minutes", variable = mode_var, value = 0)
+
+    click_var = StringVar()
+    click_var.set('Left Click')
+    option_menu = OptionMenu(root, click_var, 'Left Click', 'Right Click')
+
     label1 = Label(root, text = "Number of clicks (OR number of minutes if in mode 2): ")
     entry1 = Entry(root, bd = 5)
     label2 = Label(root, text = "Seconds per click: ")
     entry2 = Entry(root, bd = 5)
     label3 = Label(root, text = "Maximum number of random seconds between clicks: ")
     entry3 = Entry(root, bd = 5)
+
     lock_comp_var = IntVar()
     check_box3 = Checkbutton(root, text = "Lock computer after completion?", variable = lock_comp_var)
     random_click_var = IntVar()
@@ -81,6 +87,7 @@ def main():
 
     radio_button_1.pack()
     radio_button_2.pack()
+    option_menu.pack()
     label1.pack()
     entry1.pack()
     label2.pack()
