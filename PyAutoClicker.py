@@ -44,29 +44,33 @@ def main():
     check_box4 = Checkbutton(root, text = "Randomly click within 5x5 pixels of mouse?", variable = random_click_var)
     entry1.focus_set()
 
+    # Main Logic of PyAutoClicker
     def start(event = None):
-        # Main Logic of PyAutoClicker
-        global global_state
-        global_state = "ON"
-
-        if mode_var.get():
-            NUMBER_OF_CLICKS = int(entry1.get())
+        # Only allow a maximum of 10 clicks a second.
+        if float(entry2.get()) < 0.1:
+            tkinter.messagebox.showinfo('Incorrect Settings', 'Please do not enter a value under 0.1 seconds between clicks.')
         else:
-            TOTAL_RUN_TIME = float(entry1.get())
+            global global_state
+            global_state = "ON"
 
-        CLICK_TYPE = click_var.get()
-        TIME_BETWEEN_CLICKS = float(entry2.get())
-        MAX_RANDOM_TIME_VALUE = float(entry3.get())
-        SHOULD_LOCK = lock_comp_var.get()
-        RANDOM_CLICK = random_click_var.get()
+            if mode_var.get():
+                NUMBER_OF_CLICKS = int(entry1.get())
+            else:
+                TOTAL_RUN_TIME = float(entry1.get())
 
-        print('******** PyAutoClicker ********')
-        if mode_var.get():
-            thread = Thread(target = mode_1, args = (CLICK_TYPE, NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK, RANDOM_CLICK))
-            thread.start()
-        else:
-            thread = Thread(target = mode_2, args = (CLICK_TYPE, TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK, RANDOM_CLICK))
-            thread.start()
+            CLICK_TYPE = click_var.get()
+            TIME_BETWEEN_CLICKS = float(entry2.get())
+            MAX_RANDOM_TIME_VALUE = float(entry3.get())
+            SHOULD_LOCK = lock_comp_var.get()
+            RANDOM_CLICK = random_click_var.get()
+
+            print('******** PyAutoClicker ********')
+            if mode_var.get():
+                thread = Thread(target = mode_1, args = (CLICK_TYPE, NUMBER_OF_CLICKS, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK, RANDOM_CLICK))
+                thread.start()
+            else:
+                thread = Thread(target = mode_2, args = (CLICK_TYPE, TOTAL_RUN_TIME, TIME_BETWEEN_CLICKS, MAX_RANDOM_TIME_VALUE, SHOULD_LOCK, RANDOM_CLICK))
+                thread.start()
 
     def stop(event = None):
         global global_state
