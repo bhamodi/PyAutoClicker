@@ -3,4 +3,5 @@
 *.zip
 
 # Folders to ignore
+__pycache__
 private_dist
