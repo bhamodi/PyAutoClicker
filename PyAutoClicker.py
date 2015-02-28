@@ -1,14 +1,13 @@
 # The Python Auto Clicker
 # Author: Baraa Hamodi
 
-# Imports
 import win32api, win32con
 import math
 import random
 import time
 from time import strftime
 import datetime
-from tkinter import *
+import tkinter as tk
 import tkinter.messagebox
 from threading import Thread
 
@@ -16,39 +15,39 @@ global_state = ''
 
 def main():
     # GUI setup
-    root = Tk()
+    root = tk.Tk()
     root.title("PyAutoClicker")
     root.resizable(width = False, height = False)
     root.minsize(width = 310, height = 150)
     root.iconbitmap('assets/mouse.ico')
 
-    mode_var = IntVar()
+    mode_var = tk.IntVar()
     mode_var.set(1)
-    radio_button_1 = Radiobutton(root, text = "Mode 1: Click for a number of clicks", variable = mode_var, value = 1)
-    radio_button_2 = Radiobutton(root, text = "Mode 2: Click for a number of minutes", variable = mode_var, value = 0)
+    radio_button_1 = tk.Radiobutton(root, text = "Mode 1: Click for a number of clicks", variable = mode_var, value = 1)
+    radio_button_2 = tk.Radiobutton(root, text = "Mode 2: Click for a number of minutes", variable = mode_var, value = 0)
 
-    click_var = StringVar()
+    click_var = tk.StringVar()
     click_var.set('Left Click')
-    option_menu = OptionMenu(root, click_var, 'Left Click', 'Right Click')
+    option_menu = tk.OptionMenu(root, click_var, 'Left Click', 'Right Click')
 
-    label1 = Label(root, text = "Number of clicks (OR number of minutes if in mode 2): ")
-    entry1 = Entry(root, bd = 5)
-    label2 = Label(root, text = "Seconds per click: ")
-    entry2 = Entry(root, bd = 5)
-    label3 = Label(root, text = "Maximum number of random seconds between clicks: ")
-    entry3 = Entry(root, bd = 5)
+    label1 = tk.Label(root, text = "Number of clicks (OR number of minutes if in mode 2): ")
+    entry1 = tk.Entry(root, bd = 5)
+    label2 = tk.Label(root, text = "Seconds per click: ")
+    entry2 = tk.Entry(root, bd = 5)
+    label3 = tk.Label(root, text = "Maximum number of random seconds between clicks: ")
+    entry3 = tk.Entry(root, bd = 5)
 
-    lock_comp_var = IntVar()
-    check_box3 = Checkbutton(root, text = "Lock computer after completion?", variable = lock_comp_var)
-    random_click_var = IntVar()
-    check_box4 = Checkbutton(root, text = "Randomly click within 5x5 pixels of mouse?", variable = random_click_var)
+    lock_comp_var = tk.IntVar()
+    check_box3 = tk.Checkbutton(root, text = "Lock computer after completion?", variable = lock_comp_var)
+    random_click_var = tk.IntVar()
+    check_box4 = tk.Checkbutton(root, text = "Randomly click within 5x5 pixels of mouse?", variable = random_click_var)
     entry1.focus_set()
 
     # Main Logic of PyAutoClicker
     def start(event = None):
         # Only allow a maximum of 10 clicks a second.
         if float(entry2.get()) < 0.1:
-            tkinter.messagebox.showinfo('Incorrect Settings', 'Please do not enter a value under 0.1 seconds between clicks.')
+            tk.messagebox.showinfo('Incorrect Settings', 'Please do not enter a value under 0.1 seconds between clicks.')
         else:
             global global_state
             global_state = "ON"
@@ -77,16 +76,16 @@ def main():
         global_state = "OFF"
 
     # Start via click or binded key.
-    start_button = Button(root, text = "Start (F1)", command = start)
+    start_button = tk.Button(root, text = "Start (F1)", command = start)
     root.bind('<F1>', start)
 
     # Stop via click or binded key.
-    stop_button = Button(root, text = "Stop (F2)", command = stop)
+    stop_button = tk.Button(root, text = "Stop (F2)", command = stop)
     root.bind('<F2>', stop)
 
     # Check if user really meant to quit application.
     def confirm_quit():
-        if tkinter.messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
+        if tk.messagebox.askokcancel("Quit", "Are you sure you want to quit?"):
             root.destroy()
     root.protocol("WM_DELETE_WINDOW", confirm_quit)
 
