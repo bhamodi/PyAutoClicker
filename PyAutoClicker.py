@@ -45,21 +45,26 @@ def main():
 
     # Main Logic of PyAutoClicker
     def start(event = None):
-        # Only allow a maximum of 10 clicks a second.
-        if float(entry2.get()) < 0.1:
-            tk.messagebox.showinfo('Incorrect Settings', 'Please do not enter a value under 0.1 seconds between clicks.')
-        else:
-            global global_state
-            global_state = "ON"
-
+        # Validate that user has provided valid input.
+        try:
             if mode_var.get():
                 NUMBER_OF_CLICKS = int(entry1.get())
             else:
                 TOTAL_RUN_TIME = float(entry1.get())
-
-            CLICK_TYPE = click_var.get()
             TIME_BETWEEN_CLICKS = float(entry2.get())
             MAX_RANDOM_TIME_VALUE = float(entry3.get())
+        except ValueError:
+            tk.messagebox.showinfo('Incorrect Settings', 'Please enter a numeric value for all 3 boxes.')
+            return
+
+        # Only allow a maximum of 10 clicks a second.
+        if TIME_BETWEEN_CLICKS < 0.1:
+            tk.messagebox.showinfo('Incorrect Settings', 'Please do not enter a value under 0.1 seconds per click.')
+        else:
+            global global_state
+            global_state = "ON"
+
+            CLICK_TYPE = click_var.get()
             SHOULD_LOCK = lock_comp_var.get()
             RANDOM_CLICK = random_click_var.get()
 
