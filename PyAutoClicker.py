@@ -100,8 +100,8 @@ def main():
     entry3.pack()
     check_box3.pack()
     check_box4.pack()
-    start_button.pack()
-    stop_button.pack()
+    start_button.pack(side='left', ipadx=50)
+    stop_button.pack(side='right', ipadx=50)
     root.mainloop()
 
 # Define Click
