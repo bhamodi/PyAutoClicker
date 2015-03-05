@@ -3,7 +3,7 @@ PyAutoClicker
 
 A customizable and open-sourced auto clicker for all your clicking needs.
 
-![pyautoclicker](https://cloud.githubusercontent.com/assets/7663987/5933185/7be0968c-a68a-11e4-9e11-1fae3441ba4c.png)
+![pyautoclicker](https://cloud.githubusercontent.com/assets/7663987/6499488/167604c4-c2ca-11e4-82d4-32e18412455f.png)
 
 ##Features
 
