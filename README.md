@@ -19,7 +19,7 @@ A customizable and open-sourced auto clicker for all your clicking needs.
 
 ## Dependencies
 
-+ `win32api` (for Windows low-level system calls)
++ `pywin32` (for Windows low-level system calls) - [Click here to install.](http://sourceforge.net/projects/pywin32/)
 
 ## Build
 
@@ -27,7 +27,7 @@ To build your own executable python code, type `python setup.py` in the project 
 
 ## Install
 
-Windows users can simply run the `setup.exe` file located in the `/dist` directory.
+Windows users can simply run the `setup.exe` file located in the `/dist` directory. Note: no dependencies are required to be installed if using this installation method.
 
 ## Usage
 
