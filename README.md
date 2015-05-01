@@ -19,8 +19,7 @@ A customizable and open-sourced auto clicker for all your clicking needs.
 
 ## Dependencies
 
-+ `win32api` (for Windows low-level calls)
-+ `py2exe` (to build executable file)
++ `win32api` (for Windows low-level system calls)
 
 ## Build
 
