@@ -175,7 +175,7 @@ def mode_3():
     x, y = win32api.GetCursorPos()
     click_sequence.append(x, y, time.time())
     # Press special key to stop tracking (F7) (Happens in GUI)
-    # Iterate through key events at the same time intervals they occured
+    # Iterate through key events at the same time intervals they occurred
     for i in range(len(click_sequence)):
         x = click_sequence[i][0]
         y = click_sequence[i][1]
