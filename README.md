@@ -26,6 +26,10 @@ A customizable and open-sourced auto clicker for all your clicking needs.
 
 To build your own executable python code, type `python setup.py` in the project directory. Note, this will require you to have `py2exe` installed.
 
+## Package
+
+To package the program into a custom installer, follow this [video tutorial.](https://www.youtube.com/watch?v=wP9HcD4oPDw)
+
 ## Install
 
 Windows users can simply run the `setup.exe` file located in the `/dist` directory. Note: no dependencies are required to be installed if using this installation method.
